@@ -6,7 +6,7 @@
 package jpa.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,9 +26,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rh_departamento", catalog = "db_rrhh", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "RhDepartamento.findAll", query = "SELECT r FROM RhDepartamento r")
-    , @NamedQuery(name = "RhDepartamento.findByDepId", query = "SELECT r FROM RhDepartamento r WHERE r.depId = :depId")
-    , @NamedQuery(name = "RhDepartamento.findByDepNombre", query = "SELECT r FROM RhDepartamento r WHERE r.depNombre = :depNombre")})
+    @NamedQuery(name = "RhDepartamento.findAll", query = "SELECT r FROM RhDepartamento r")})
 public class RhDepartamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +39,7 @@ public class RhDepartamento implements Serializable {
     @Column(name = "DEP_NOMBRE", nullable = false, length = 45)
     private String depNombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "depId")
-    private List<RhEmpleado> rhEmpleadoList;
+    private Collection<RhEmpleado> rhEmpleadoCollection;
 
     public RhDepartamento() {
     }
@@ -71,12 +69,12 @@ public class RhDepartamento implements Serializable {
         this.depNombre = depNombre;
     }
 
-    public List<RhEmpleado> getRhEmpleadoList() {
-        return rhEmpleadoList;
+    public Collection<RhEmpleado> getRhEmpleadoCollection() {
+        return rhEmpleadoCollection;
     }
 
-    public void setRhEmpleadoList(List<RhEmpleado> rhEmpleadoList) {
-        this.rhEmpleadoList = rhEmpleadoList;
+    public void setRhEmpleadoCollection(Collection<RhEmpleado> rhEmpleadoCollection) {
+        this.rhEmpleadoCollection = rhEmpleadoCollection;
     }
 
     @Override
@@ -101,7 +99,7 @@ public class RhDepartamento implements Serializable {
 
     @Override
     public String toString() {
-        return "prueba.entity.RhDepartamento[ depId=" + depId + " ]";
+        return "jpa.entity.RhDepartamento[ depId=" + depId + " ]";
     }
     
 }

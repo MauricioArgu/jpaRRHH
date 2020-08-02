@@ -6,7 +6,7 @@
 package jpa.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,19 +28,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rh_empleado", catalog = "db_rrhh", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "RhEmpleado.findAll", query = "SELECT r FROM RhEmpleado r")
-    , @NamedQuery(name = "RhEmpleado.findByEmpId", query = "SELECT r FROM RhEmpleado r WHERE r.empId = :empId")
-    , @NamedQuery(name = "RhEmpleado.findByEmpCodigo", query = "SELECT r FROM RhEmpleado r WHERE r.empCodigo = :empCodigo")
-    , @NamedQuery(name = "RhEmpleado.findByEmpNombres", query = "SELECT r FROM RhEmpleado r WHERE r.empNombres = :empNombres")
-    , @NamedQuery(name = "RhEmpleado.findByEmpApellidos", query = "SELECT r FROM RhEmpleado r WHERE r.empApellidos = :empApellidos")
-    , @NamedQuery(name = "RhEmpleado.findByEmpDui", query = "SELECT r FROM RhEmpleado r WHERE r.empDui = :empDui")
-    , @NamedQuery(name = "RhEmpleado.findByEmpNit", query = "SELECT r FROM RhEmpleado r WHERE r.empNit = :empNit")
-    , @NamedQuery(name = "RhEmpleado.findByEmpCorreo", query = "SELECT r FROM RhEmpleado r WHERE r.empCorreo = :empCorreo")
-    , @NamedQuery(name = "RhEmpleado.findByEmpTelefono", query = "SELECT r FROM RhEmpleado r WHERE r.empTelefono = :empTelefono")
-    , @NamedQuery(name = "RhEmpleado.findByEmpSueldo", query = "SELECT r FROM RhEmpleado r WHERE r.empSueldo = :empSueldo")
-    , @NamedQuery(name = "RhEmpleado.findByEmpDireccion", query = "SELECT r FROM RhEmpleado r WHERE r.empDireccion = :empDireccion")
-    , @NamedQuery(name = "RhEmpleado.findByEmpEstado", query = "SELECT r FROM RhEmpleado r WHERE r.empEstado = :empEstado")
-    , @NamedQuery(name = "RhEmpleado.findByEmpJefId", query = "SELECT r FROM RhEmpleado r WHERE r.empJefId = :empJefId")})
+    @NamedQuery(name = "RhEmpleado.findAll", query = "SELECT r FROM RhEmpleado r")})
 public class RhEmpleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,14 +67,14 @@ public class RhEmpleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "EMP_ESTADO", nullable = false)
     private int empEstado;
-    @Basic(optional = false)
-    @Column(name = "EMP_JEF_ID", nullable = false)
-    private int empJefId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empId")
-    private List<RhDetallePlanilla> rhDetallePlanillaList;
     @JoinColumn(name = "DEP_ID", referencedColumnName = "DEP_ID", nullable = false)
     @ManyToOne(optional = false)
     private RhDepartamento depId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empJefId")
+    private Collection<RhEmpleado> rhEmpleadoCollection;
+    @JoinColumn(name = "EMP_JEF_ID", referencedColumnName = "EMP_ID", nullable = false)
+    @ManyToOne(optional = false)
+    private RhEmpleado empJefId;
 
     public RhEmpleado() {
     }
@@ -95,7 +83,7 @@ public class RhEmpleado implements Serializable {
         this.empId = empId;
     }
 
-    public RhEmpleado(Integer empId, String empCodigo, String empNombres, String empApellidos, String empDui, String empNit, String empCorreo, String empTelefono, double empSueldo, String empDireccion, int empEstado, int empJefId) {
+    public RhEmpleado(Integer empId, String empCodigo, String empNombres, String empApellidos, String empDui, String empNit, String empCorreo, String empTelefono, double empSueldo, String empDireccion, int empEstado) {
         this.empId = empId;
         this.empCodigo = empCodigo;
         this.empNombres = empNombres;
@@ -107,7 +95,6 @@ public class RhEmpleado implements Serializable {
         this.empSueldo = empSueldo;
         this.empDireccion = empDireccion;
         this.empEstado = empEstado;
-        this.empJefId = empJefId;
     }
 
     public Integer getEmpId() {
@@ -198,28 +185,28 @@ public class RhEmpleado implements Serializable {
         this.empEstado = empEstado;
     }
 
-    public int getEmpJefId() {
-        return empJefId;
-    }
-
-    public void setEmpJefId(int empJefId) {
-        this.empJefId = empJefId;
-    }
-
-    public List<RhDetallePlanilla> getRhDetallePlanillaList() {
-        return rhDetallePlanillaList;
-    }
-
-    public void setRhDetallePlanillaList(List<RhDetallePlanilla> rhDetallePlanillaList) {
-        this.rhDetallePlanillaList = rhDetallePlanillaList;
-    }
-
     public RhDepartamento getDepId() {
         return depId;
     }
 
     public void setDepId(RhDepartamento depId) {
         this.depId = depId;
+    }
+
+    public Collection<RhEmpleado> getRhEmpleadoCollection() {
+        return rhEmpleadoCollection;
+    }
+
+    public void setRhEmpleadoCollection(Collection<RhEmpleado> rhEmpleadoCollection) {
+        this.rhEmpleadoCollection = rhEmpleadoCollection;
+    }
+
+    public RhEmpleado getEmpJefId() {
+        return empJefId;
+    }
+
+    public void setEmpJefId(RhEmpleado empJefId) {
+        this.empJefId = empJefId;
     }
 
     @Override
@@ -244,7 +231,9 @@ public class RhEmpleado implements Serializable {
 
     @Override
     public String toString() {
-        return "prueba.entity.RhEmpleado[ empId=" + empId + " ]";
+        return "RhEmpleado{" + "empId=" + empId + ", empCodigo=" + empCodigo + ", empNombres=" + empNombres + ", empApellidos=" + empApellidos + ", empDui=" + empDui + ", empNit=" + empNit + ", empCorreo=" + empCorreo + ", empTelefono=" + empTelefono + ", empSueldo=" + empSueldo + ", empDireccion=" + empDireccion + ", empEstado=" + empEstado + ", depId=" + depId + ", rhEmpleadoCollection=" + rhEmpleadoCollection + ", empJefId=" + empJefId + '}';
     }
+
+    
     
 }
