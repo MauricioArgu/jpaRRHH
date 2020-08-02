@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="jpaPU" transaction-type="RESOURCE_LOCAL">
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>jpa.entity.RhUsuario</class>
+    <class>jpa.entity.RhDetallePlanilla</class>
+    <class>jpa.entity.RhRol</class>
+    <class>jpa.entity.RhPlanilla</class>
+    <class>jpa.entity.RhEmpleado</class>
+    <class>jpa.entity.RhDepartamento</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://35.208.154.100:3306/db_rrhh?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="opUser"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="bitlabP@ssword123"/>
+    </properties>
+  </persistence-unit>
+</persistence>
