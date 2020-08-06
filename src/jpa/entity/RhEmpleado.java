@@ -231,7 +231,7 @@ public class RhEmpleado implements Serializable {
 
     @Override
     public String toString() {
-        return "RhEmpleado{" + "empId=" + empId + ", empCodigo=" + empCodigo + ", empNombres=" + empNombres + ", empApellidos=" + empApellidos + ", empDui=" + empDui + ", empNit=" + empNit + ", empCorreo=" + empCorreo + ", empTelefono=" + empTelefono + ", empSueldo=" + empSueldo + ", empDireccion=" + empDireccion + ", empEstado=" + empEstado + ", depId=" + depId + ", rhEmpleadoCollection=" + rhEmpleadoCollection + ", empJefId=" + empJefId + '}';
+        return "RhEmpleado{" + "empId=" + empId + '}';
     }
 
     

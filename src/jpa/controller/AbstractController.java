@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import jpa.entity.RhEmpleado;
 
 /**
  *
@@ -88,17 +89,14 @@ public abstract class AbstractController <T>{
         }
     }
     
-    public boolean find(T entity,Object id) throws Exception
+    public T find(T entity,Object id) throws Exception
     {
         EntityManager em = getEntityManager();
         
         try
         {
-            em.getTransaction().begin();
-            em.find(entity.getClass(), id);
-            em.getTransaction().commit();
+            return em.find((Class<T>) entity.getClass() , id);
            
-            return true;
         }
         catch(Exception e)
         {
@@ -113,6 +111,7 @@ public abstract class AbstractController <T>{
             }
         }
     }
+    
     
     public List<T> findAll(T entity) throws Exception
     {
@@ -141,6 +140,8 @@ public abstract class AbstractController <T>{
         }
         return entities;
     }
+    
+    
     
     
     

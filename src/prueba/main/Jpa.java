@@ -44,9 +44,6 @@ public class Jpa
             Object obj = new Object();
             
             obj = 1;
-            if (rolController.find(remove, obj)) {
-                System.out.println("Encontrado");
-            }
         } 
         catch (Exception ex) 
         {

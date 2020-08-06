@@ -18,7 +18,7 @@ import javax.persistence.Query;
  */
 public class EmpController extends AbstractController<RhEmpleado>
 {
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return ConnectionFactory.getInstance().getEntityManagerFactory().createEntityManager();
@@ -31,10 +31,11 @@ public class EmpController extends AbstractController<RhEmpleado>
         
         List<RhEmpleado> entities = new ArrayList<>();
         
+        
         try
         {
-            String jpql = "SELECT o FROM " + entity.getClass().getSimpleName() + " o WHERE EMP_ESTADO = 0";
-            Query q = em.createQuery(jpql);
+            String jpql = "SELECT e FROM " + entity.getClass().getSimpleName() + " e WHERE e.empEstado = :param";
+            Query q = em.createQuery(jpql).setParameter("param", 0);
             entities = q.getResultList();
         }
         catch(Exception e)
