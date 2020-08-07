@@ -12,6 +12,7 @@ import jpa.entity.RhDetallePlanilla;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import jpa.entity.RhEmpleado;
+import jpa.entity.RhPlanilla;
 
 /**
  *
@@ -26,7 +27,7 @@ public class DetPlaController extends AbstractController<RhDetallePlanilla>
         return ConnectionFactory.getInstance().getEntityManagerFactory().createEntityManager();
     }
     
-    public List<RhDetallePlanilla> findById(int id) throws Exception
+    public List<RhDetallePlanilla> findById(RhPlanilla id) throws Exception
     {
         EntityManager em = getEntityManager();
         
