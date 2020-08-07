@@ -62,7 +62,7 @@ public class PlaController extends AbstractController<RhPlanilla>
         {
             String jpql = "SELECT t FROM RhPlanilla t ORDER BY t.plnId desc";
             Query q = em.createQuery(jpql);
-            return (RhPlanilla) q.getSingleResult();
+            return (RhPlanilla) q.setMaxResults(1).getResultList();
         }
         catch(Exception e)
         {
