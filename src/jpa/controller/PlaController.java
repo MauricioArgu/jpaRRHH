@@ -53,4 +53,27 @@ public class PlaController extends AbstractController<RhPlanilla>
             }
         }
     }
+    
+    public RhPlanilla getLastPayroll() throws Exception
+    {
+        EntityManager em = getEntityManager();
+        
+        try
+        {
+            String jpql = "SELECT t FROM RhPlanilla t ORDER BY t.plnId desc";
+            Query q = em.createQuery(jpql);
+            return (RhPlanilla) q.getSingleResult();
+        }
+        catch(Exception e)
+        {
+            throw new Exception(e);
+        }
+        finally
+        {
+            if (em.isOpen()) 
+            {
+                em.close();
+            }
+        }
+    }
 }
