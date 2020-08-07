@@ -18,7 +18,7 @@ public class UsuController extends AbstractController<RhUsuario>
 {
     public RhUsuario validarUsuario(String email)
     {
-        Query q = getEntityManager().createQuery("SELECT u FROM RhUsuario u WHERE u.usCorreo :email");
+        Query q = getEntityManager().createQuery("SELECT u FROM RhUsuario u WHERE u.usCorreo = :email");
         q.setParameter("email", email);
         return(RhUsuario) q.getSingleResult();
     }
